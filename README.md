@@ -91,7 +91,7 @@ const最强的用法是在函数声明时，如果将返回值设置成const，�
 除了这些以外，如果我们有两个文件A和B，需要分别编译，A构造函数中用到了B中的对象，那么初始化A和B的顺序就很重要了，这些变量称为（non-local static对象）
 
 解决方法是：将每个non-local static对象搬到自己专属的函数内，并且该对象被声明为static，然后这些函数返回一个reference指向他所含的对象，用户调用这些函数，而不直接涉及这些对象（Singleton模式手法）：
-
+```C++
     原代码：
     "A.h"
     class FileSystem{
@@ -123,7 +123,7 @@ const最强的用法是在函数声明时，如果将返回值设置成const，�
         static Directory td; //定义并初始化local static对象，返回一个reference指向上述对象
         return td;
     }
-
+```
 这样做的原理在于C++对于函数内的local static对象会在“该函数被调用期间，且首次遇到的时候”被初始化。当然我们需要避免“A受制于B，B也受制于A”
 
 总结：
